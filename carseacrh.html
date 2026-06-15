@@ -3,209 +3,180 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Weather Visual Page</title>
+  <title>AutoDrive Cars</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-.page-header {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
-    text-align: center;
-}
-
-.page-header h1 {
-    color: white;
-    font-size: 42px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-shadow:
-        0 0 10px rgba(255,255,255,0.8),
-        0 0 20px rgba(255,255,255,0.6),
-        0 0 30px rgba(0,0,0,0.3);
-}
-
     body {
-      min-height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 25px;
+      text-align: center;
+    }
+
+    nav {
+      background: #1f2937;
+      padding: 12px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+
+    .hero {
+      background: linear-gradient(to right, #111827, #374151);
+      color: white;
+      padding: 70px 20px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 18px;
+    }
+
+    .section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .cars {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: white;
+      width: 280px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
       overflow: hidden;
-      background: linear-gradient(to bottom, #74c0fc, #d0ebff);
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
 
-    .scene {
-      position: relative;
+    .card img {
       width: 100%;
-      height: 100vh;
+      height: 180px;
+      object-fit: cover;
     }
 
-    .sun {
-      position: absolute;
-      top: 8%;
-      right: 12%;
-      width: 130px;
-      height: 130px;
-      background: #ffd43b;
-      border-radius: 50%;
-      box-shadow: 0 0 60px #ffd43b;
+    .card h3 {
+      margin: 15px 0 8px;
+      color: #111827;
     }
 
-    .cloud {
-      position: absolute;
-      background: #fff;
-      border-radius: 50px;
-      opacity: 0.9;
-      animation: moveClouds 25s linear infinite;
+    .card p {
+      padding: 0 15px 20px;
+      color: #555;
     }
 
-    .cloud::before,
-    .cloud::after {
-      content: "";
-      position: absolute;
-      background: #fff;
-      border-radius: 50%;
+    .features {
+      background: #e5e7eb;
+      padding: 40px 20px;
     }
 
-    .cloud::before {
-      width: 80px;
-      height: 80px;
-      top: -40px;
-      left: 25px;
-    }
-
-    .cloud::after {
-      width: 110px;
-      height: 110px;
-      top: -60px;
-      right: 20px;
-    }
-
-    .cloud.one {
+    .feature-box {
+      display: inline-block;
+      background: white;
+      padding: 20px;
+      margin: 10px;
+      border-radius: 10px;
       width: 220px;
-      height: 70px;
-      top: 25%;
-      left: -250px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
-    .cloud.two {
-      width: 180px;
-      height: 60px;
-      top: 45%;
-      left: -300px;
-      animation-duration: 35s;
-      opacity: 0.75;
-    }
-
-    .cloud.three {
-      width: 260px;
-      height: 80px;
-      top: 62%;
-      left: -350px;
-      animation-duration: 45s;
-      opacity: 0.65;
-    }
-
-    .rain {
-      position: absolute;
-      bottom: 0;
-      width: 2px;
-      height: 70px;
-      background: rgba(255, 255, 255, 0.7);
-      animation: rainFall 1s linear infinite;
-    }
-
-    .rain:nth-child(6) { left: 15%; animation-delay: 0s; }
-    .rain:nth-child(7) { left: 25%; animation-delay: 0.2s; }
-    .rain:nth-child(8) { left: 35%; animation-delay: 0.4s; }
-    .rain:nth-child(9) { left: 55%; animation-delay: 0.1s; }
-    .rain:nth-child(10) { left: 70%; animation-delay: 0.3s; }
-    .rain:nth-child(11) { left: 85%; animation-delay: 0.5s; }
-
-    .weather-icons {
-      position: absolute;
-      bottom: 8%;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      gap: 35px;
-      font-size: 70px;
-    }
-
-    .weather-icons span {
-      width: 110px;
-      height: 110px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 25px;
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    @keyframes moveClouds {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(130vw);
-      }
-    }
-
-    @keyframes rainFall {
-      from {
-        transform: translateY(-100vh);
-        opacity: 1;
-      }
-      to {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
+    footer {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 18px;
+      margin-top: 30px;
     }
   </style>
 </head>
 
 <body>
-    <header class="page-header">
-    <h1>AI Weather Insights</h1>
-</header>
-  <div class="scene">
-    <div class="sun"></div>
 
-    <div class="cloud one"></div>
-    <div class="cloud two"></div>
-    <div class="cloud three"></div>
+  <header>
+    <h1>Drive Cars</h1>
+    <p>Your trusted destination for modern automobiles</p>
+  </header>
 
-    <div class="rain"></div>
-    <div class="rain"></div>
-    <div class="rain"></div>
-    <div class="rain"></div>
-    <div class="rain"></div>
-    <div class="rain"></div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Cars</a>
+    <a href="#">Features</a>
+    <a href="#">Contact</a>
+  </nav>
 
-    <div class="weather-icons">
-      <span>☀️</span>
-      <span>🌤️</span>
-      <span>🌧️</span>
-      <span>⛈️</span>
-      <span>❄️</span>
+  <section class="hero">
+    <h1>Drive Your Dream Car</h1>
+    <p>Explore luxury, performance, and comfort in one place</p>
+  </section>
+
+  <section class="section">
+    <h2>Popular Car Models</h2>
+
+    <div class="cars">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8" alt="Sports Car">
+        <h3>Sports Car</h3>
+        <p>High performance cars designed for speed, style, and excitement.</p>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70" alt="Luxury Car">
+        <h3>Luxury Car</h3>
+        <p>Premium cars with advanced comfort, safety, and technology.</p>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1542362567-b07e54358753" alt="SUV">
+        <h3>SUV</h3>
+        <p>Powerful and spacious vehicles suitable for family and adventure.</p>
+      </div>
     </div>
-  </div>
-  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-<script type="module">
-import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
- createChat({
- webhookUrl: 'https://n8n.srv1389046.hstgr.cloud/webhook/79fefdbe-dc99-4218-b346-c11d4473562b/chat'
-});
-</script>
+  </section>
+
+  <section class="features">
+    <h2 style="text-align:center;">Why Choose Us?</h2>
+
+    <div style="text-align:center;">
+      <div class="feature-box">
+        <h3>Best Price</h3>
+        <p>Affordable deals on top car brands.</p>
+      </div>
+
+      <div class="feature-box">
+        <h3>Quality Cars</h3>
+        <p>Well maintained and verified vehicles.</p>
+      </div>
+
+      <div class="feature-box">
+        <h3>Easy Support</h3>
+        <p>Friendly assistance for all customers.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Drive Cars. All Rights Reserved.</p>
+  </footer>
+
 </body>
 </html>
