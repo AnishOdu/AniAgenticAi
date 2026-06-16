@@ -177,7 +177,19 @@
 <script type="module">
 import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
  createChat({
- webhookUrl: 'https://n8n.srv1389046.hstgr.cloud/webhook/79fefdbe-dc99-4218-b346-c11d4473562b/chat'
+ webhookUrl: 'https://n8n.srv1389046.hstgr.cloud/webhook/79fefdbe-dc99-4218-b346-c11d4473562b/chat',
+
+ initialMessages: [
+    'Hi there! 👋',
+    'My name is Anish. How can I assist you today?'
+  ],
+  i18n: {
+    en: {
+      title: 'Hi there! 👋',
+      subtitle: "Start a chat. We're here to help you 24/7.",
+    }
+  }
+   
 });
 </script>
 
